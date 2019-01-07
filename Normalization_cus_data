@@ -1,0 +1,43 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Jan  4 21:32:06 2019
+
+@author: shirley
+"""
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+customer_data=pd.read_csv("C:\\Users\\shirley\\Documents\\term2\\data mining\\classwork3\\0418_Customer.csv")
+desc_cus=customer_data.describe()
+#print(df)
+#Normalization
+#df.loc[:,['A','B']]
+#dealing with the age
+max_age=desc_cus.loc['max','age']
+min_age=desc_cus.loc['min','age']
+range_age=max_age-min_age
+norm_age=customer_data.copy()
+for i in range(0,600):
+    norm_age.iloc[i,0] = (norm_age.iloc[i,0]-min_age)/range_age
+#dealing with the income
+max_income=desc_cus.loc['max','income']
+min_income=desc_cus.loc['min','income']
+range_income=max_income-min_income
+norm_income=norm_age.copy()
+for i in range(0,600):
+    norm_income.iloc[i,3] = (norm_income.iloc[i,3]-min_income)/range_income
+#dealing with the children
+max_children=desc_cus.loc['max','children']
+min_children=desc_cus.loc['min','children']
+range_children=max_children-min_children
+norm_children=norm_income.copy()
+for i in range(0,600):
+    norm_children.iloc[i,5] = (norm_children.iloc[i,5]-min_children)/range_children
+norm_customer=norm_children.copy()
+norm_customer.to_csv("C:\\Users\\shirley\\Documents\\term2\\data mining\\classwork3\\0418_Customer_normalization.csv")    
+
+
+
+
