@@ -1,0 +1,35 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Jan  5 19:36:20 2019
+
+@author: shirley
+"""
+import pandas as pd
+
+#Standardize
+customer_data=pd.read_csv("C:\\Users\\shirley\\Documents\\term2\\data mining\\classwork3\\0418_Customer.csv")
+desc_cus=customer_data.describe()
+#print(df)
+#Normalization
+#df.loc[:,['A','B']]
+#dealing with the age
+mean_age=desc_cus.loc['mean','age']
+std_age=desc_cus.loc['std','age']
+stand_age=customer_data.copy()
+for i in range(0,600):
+    stand_age.iloc[i,0] = (stand_age.iloc[i,0]-mean_age)/std_age
+#dealing with the income
+mean_income=desc_cus.loc['mean','income']
+std_income=desc_cus.loc['std','income']
+stand_income=stand_age.copy()
+for i in range(0,600):
+    stand_income.iloc[i,3] = (stand_income.iloc[i,3]-mean_income)/std_income
+#dealing with the children
+mean_children=desc_cus.loc['mean','children']
+std_children=desc_cus.loc['std','children']
+stand_children=stand_income.copy()
+for i in range(0,600):
+    stand_children.iloc[i,5] = (stand_children.iloc[i,5]-mean_children)/std_children
+stand_customer=stand_children.copy()
+stand_customer.to_csv("C:\\Users\\shirley\\Documents\\term2\\data mining\\classwork3\\0418_Customer_standardization.csv")    
+
